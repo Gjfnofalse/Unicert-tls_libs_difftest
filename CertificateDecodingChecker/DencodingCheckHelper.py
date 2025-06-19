@@ -1,0 +1,127 @@
+from DecodingDetection import DecodingChecker
+
+# The randomly generated chars the experiment used.
+# If you want to deploy your own test, you must substiute it with your charset.
+InsertChars = ["0000", "0001", "0002", "0003", "0004", "0005", "0006", "0007", "0008", "0009", "000A", "000B", "000C", "000D", "000E", "000F", "0010", "0011", "0012", "0013", "0014", "0015", "0016", "0017", "0018", "0019", "001A", "001B", "001C", "001D", "001E", "001F", "0020", "0021", "0022", "0023", "0024", "0025", "0026", "0027", "0028", "0029", "002A", "002B", "002C", "002D", "002E", "002F", "0030", "0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038", "0039", "003A", "003B", "003C", "003D", "003E", "003F", "0040", "0041", "0042", "0043", "0044", "0045", "0046", "0047", "0048", "0049", "004A", "004B", "004C", "004D", "004E", "004F", "0050", "0051", "0052", "0053", "0054", "0055", "0056", "0057", "0058", "0059", "005A", "005B", "005C", "005D", "005E", "005F", "0060", "0061", "0062", "0063", "0064", "0065", "0066", "0067", "0068", "0069", "006A", "006B", "006C", "006D", "006E", "006F", "0070", "0071", "0072", "0073", "0074", "0075", "0076", "0077", "0078", "0079", "007A", "007B", "007C", "007D", "007E", "007F", "0080", "0081", "0082", "0083", "0084", "0085", "0086", "0087", "0088", "0089", "008A", "008B", "008C", "008D", "008E", "008F", "0090", "0091", "0092", "0093", "0094", "0095", "0096", "0097", "0098", "0099", "009A", "009B", "009C", "009D", "009E", "009F", "00A0", "00A1", "00A2", "00A3", "00A4", "00A5", "00A6", "00A7", "00A8", "00A9", "00AA", "00AB", "00AC", "00AD", "00AE", "00AF", "00B0", "00B1", "00B2", "00B3", "00B4", "00B5", "00B6", "00B7", "00B8", "00B9", "00BA", "00BB", "00BC", "00BD", "00BE", "00BF", "00C0", "00C1", "00C2", "00C3", "00C4", "00C5", "00C6", "00C7", "00C8", "00C9", "00CA", "00CB", "00CC", "00CD", "00CE", "00CF", "00D0", "00D1", "00D2", "00D3", "00D4", "00D5", "00D6", "00D7", "00D8", "00D9", "00DA", "00DB", "00DC", "00DD", "00DE", "00DF", "00E0", "00E1", "00E2", "00E3", "00E4", "00E5", "00E6", "00E7", "00E8", "00E9", "00EA", "00EB", "00EC", "00ED", "00EE", "00EF", "00F0", "00F1", "00F2", "00F3", "00F4", "00F5", "00F6", "00F7", "00F8", "00F9", "00FA", "00FB", "00FC", "00FD", "00FE", "00FF", "017B", "0209", "0267", "02C4", "0337", "03D6", "046F", "052D", "054E", "05F4", "0664", "0720", "0766", "07B2", "07D2", "0806", "084F", "0868", "0879", "08FC", "0974", "0985", "0A15", "0AC6", "0B29", "0BB4", "0C5C", "0CFD", "0D1D", "0D8F", "0E7C", "0ED2", "0F38", "105C", "10B6", "1129", "12FF", "138A", "13BC", "15E0", "169E", "16F0", "170B", "1723", "1753", "1761", "17F7", "1858", "18C1", "1913", "1976", "199F", "19FC", "1A0E", "1A5A", "1ADD", "1B41", "1B98", "1BD0", "1C16", "1C67", "1C88", "1CAC", "1CC1", "1CDC", "1D05", "1D92", "1DDD", "1EC6", "1F54", "203A", "208B", "20B8", "20DF", "2113", "2151", "21F5", "2230", "2335", "243F", "2456", "246B", "2548", "2596", "25F8", "2640", "27A7", "27CE", "27F8", "2886", "2933", "29BB", "2ADE", "2B78", "2C12", "2C6A", "2C82", "2D0E", "2D47", "2D8A", "2DF2", "2E37", "2EC5", "2F70", "2FF0", "3011", "3095", "30C5", "310A", "3187", "319C", "31A4", "31DE", "31FF", "3287", "33CB", "414F", "4DF7", "6993", "A253", "A4CB", "A4E9", "A580", "A692", "A6EB", "A700", "A746", "A829", "A83C", "A875", "A888", "A8E7", "A919", "A935", "A963", "A98C", "A9EB", "AA49", "AA6A", "AAAB", "AAF8", "AB2C", "AB56", "AB73", "ABCE", "D6BD", "D7FD", "EE74", "F90D", "FB02", "FCFC", "FE0B", "FE1F", "FE23", "FE39", "FE60", "FEEA", "FF47", "FFFC", "10069", "100D0", "10117", "10176", "101C6", "101F9", "10291", "102BE", "102E2", "1030D", "10330", "10371", "10390", "103B7", "1043B", "10470", "1048A", "104CE", "1052C", "1056B", "10591", "10607", "107B4", "1081D", "10859", "10870", "10893", "108E4", "1091F", "10921", "10991", "109BE", "10A53", "10A79", "10A91", "10AC2", "10B1F", "10B48", "10B6D", "10B91", "10C3B", "10CE2", "10D07", "10E6C", "10EA9", "10ED4", "10F11", "10F38", "10F7A", "10FB4", "10FFB", "11004", "110C0", "110EE", "1112C", "11168", "111AC", "111E9", "11205", "11288", "112D7", "1135B", "1141B", "114BB", "11587", "11627", "11664", "1168F", "11730", "11842", "118B7", "11920", "119FF", "11A38", "11A60", "11AB3", "11AF9", "11B5C", "11C6D", "11C85", "11D5F", "11DA8", "11EF1", "11F33", "11FB9", "11FC2", "122E4", "12457", "1254E", "12FE2", "13315", "13431", "14457", "169F1", "16A5F", "16A8B", "16AE0", "16B7D", "16E65", "16F48", "16FF3", "17F7A", "18934", "18B19", "18D70", "1AFF0", "1B041", "1B102", "1B143", "1B1A3", "1BC0D", "1BCA7", "1CF4E", "1D0FD", "1D14D", "1D23A", "1D2C3", "1D2FD", "1D329", "1D369", "1D6F7", "1D972", "1DFDD", "1E025", "1E036", "1E14C", "1E2B1", "1E2D6", "1E4FF", "1E7E7", "1E889", "1E93D", "1EC96", "1ED43", "1EE49", "1F019", "1F04A", "1F0B0", "1F144", "1F2F6", "1F3FB", "1F62A", "1F664", "1F6D0", "1F70B", "1F7BF", "1F891", "1F937", "1FA6C", "1FABC", "1FB80", "29FF7", "2A891", "2B75B", "2BA9B", "2E75C", "2EC92", "2F8AD", "30F04", "317D0", "E005C", "E01E5", "F0132", "108C79"]
+
+CharsIndex = {char: idx for idx, char in enumerate(InsertChars)}
+
+save_info = {
+    "parsing_failed":set(), 
+    "possible_replacement":set(), 
+    "replacement":set(),
+    "possible_escaping":set(),
+    "escaping":set(),
+    "possible_truncation":set(),
+    "truncation":set(),
+    "possible_decodings":set(),
+    "possible_decodings_ex":set(),
+    "is_unidecoding":False, 
+}
+
+def SortCharList(raw:list)->list:
+    if len(raw) ==0:
+        return []
+    return sorted(raw, key=lambda x: int(x, 16))
+    
+
+def MergeByValue(raw:list):
+    if len(raw)==0:
+        return []
+    
+    res = []
+    headpos = 0
+    curpos = 1
+    pastpos = 0
+    for i in range(len(raw)):
+        try:
+            if CharsIndex[raw[curpos]]- CharsIndex[raw[pastpos]] ==1:
+                curpos = curpos+1
+                pastpos = pastpos+1
+            else:
+                if pastpos ==headpos:
+                    res.append(raw[headpos])
+                else:
+                    res.append(raw[headpos]+'-'+raw[pastpos])
+                headpos = curpos
+                pastpos =curpos
+                curpos = curpos +1
+        except:
+            if curpos -1 ==headpos:
+                res.append(raw[headpos])
+            else:
+                res.append(raw[headpos]+'-'+raw[curpos-1])
+    
+    return res
+
+
+def FindAllCharlistsInDict(d, path=None):
+    if path is None:
+        path = []
+    
+    results = []
+    
+    # 遍历字典中的每个键值对
+    for key, value in d.items():
+        current_path = path + [key]  # 当前路径是在原有路径的基础上添加当前键
+        
+        # 如果值是字典并且其所有值都不是字典，则记录这个字典及其路径
+        if isinstance(value, dict) and all(not isinstance(v, dict) for v in value.values()):
+            results.append(current_path)
+        
+        # 如果值是字典，则继续递归搜索
+        elif isinstance(value, dict):
+            results.extend(FindAllCharlistsInDict(value, current_path))
+    
+    return results
+
+def set_deduced_decoding(d, path):
+    current = d
+    
+    for key in path:
+        current = current[key]
+    if len(current["parsing_failed"])==0 and len(current["possible_decodings"])==0 and len(current["possible_replacement"])==0 and len(current["possible_escaping"])==0 and len(current["possible_truncation"])==0\
+        and len(current["possible_decodings_ex"])==0 and len(current["truncation"])==0 and len(current["replacement"])==0 and len(current["escaping"])==0:
+        current["deduced_decoding"] = "pass"
+        current["deduced_decoding_ex"] = "pass"
+    else:
+        current["deduced_decoding"] = DecodingChecker(current["possible_decodings"])
+        current["deduced_decoding_ex"] = DecodingChecker(current["possible_decodings_ex"])
+        if current["deduced_decoding"]!="error" and current["possible_decodings_ex"] !="error":
+            if current["deduced_decoding"]!="unknown" or current["deduced_decoding_ex"]!="unknown":
+                tmp = set()
+                if current["deduced_decoding"]!="unknown":
+                    tmp.add(current["deduced_decoding"])
+                if current["deduced_decoding_ex"]!="unknown":
+                    tmp.add(current["deduced_decoding_ex"])
+                
+                current["deduced_decoding_include_ex"] = DecodingChecker(tmp)
+            else:
+                current["deduced_decoding_include_ex"] ="unknown"
+        else:
+            current["deduced_decoding_include_ex"] ="error"
+            
+    current["parsing_failed"] = MergeByValue(SortCharList(list(current["parsing_failed"])))
+    current["possible_decodings"] = list(current["possible_decodings"])
+    current["possible_decodings_ex"] = list(current["possible_decodings_ex"])
+    current["possible_replacement"] = MergeByValue(SortCharList(list(current["possible_replacement"])))
+    current["possible_escaping"] = MergeByValue(SortCharList(list(current["possible_escaping"])))
+    current["possible_truncation"] = MergeByValue(SortCharList(list(current["possible_truncation"])))
+    current["replacement"] = MergeByValue(SortCharList(list(current["replacement"])))
+    current["escaping"] = MergeByValue(SortCharList(list(current["escaping"])))
+    current["truncation"] = MergeByValue(SortCharList(list(current["truncation"])))
+    if current["deduced_decoding"] == "pass" and current["deduced_decoding_ex"] == "pass":
+        return
+    if len(current["possible_replacement"]) ==0 and len(current["possible_escaping"])==0 and len(current["possible_truncation"])==0:
+        if current["deduced_decoding_include_ex"] !="unknown" and current["deduced_decoding_include_ex"] !="error":
+            current["is_unidecoding"] =True
+
+ASN1_list = [
+    "PrintableString",
+    "Ia5String",
+    "UTF8String",
+    "TeletexString",
+    "BMPString"
+]
+
+DN=['2.5.4.3','2.5.4.15','0.9.2342.19200300.100.1.25','1.2.840.113549.1.9.1','2.5.4.7','2.5.4.11','2.5.4.10','2.5.4.5','2.5.4.8']
