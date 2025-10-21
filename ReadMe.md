@@ -14,7 +14,7 @@ This repository includes the following components:
 
 ## Fix
 * The Go team has resolved the decoding issue; for details, see: <https://github.com/golang/go/issues/71862>.
-* Oracle has addressed the decoding issue, credited us in their Critical Patch Update (CPU), see <>, and assigned CVE-XXXX-XXXX for this vulnerability.
+* Oracle has addressed the decoding issue, credited us in their Critical Patch Update (CPU), see <https://www.oracle.com/security-alerts/cpuoct2025.html>, and assigned CVE-2025-53057 for this vulnerability.
 * We have also notified all CAs identified with encoding errors. Most have resolved the issue, while the rest are still under investigation.
   
 ## CertificateGenerator and TestCertificates
